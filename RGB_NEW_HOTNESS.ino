@@ -1,177 +1,128 @@
-//Dan, Michael, and Nate 
-//1/27/2017
+// Dan Bevilacqua, Michael Garlak, Nate Hahn
+// Tie Selector
+// Uses two TCS3200 Color Sensors, 360* Servo and Arduino Uno R3 v
+// Kent FashionTech Hackathon
+// 1/27/2017
 
-const int s0=2;
-const int s1=4;
-const int s2=8;
-const int s3=12;
-const int out=7;
+#include <Servo.h>
 
+Servo rackServo;
+
+// ---------------------- SERVO PIN ---------------------------------
+const int sPin = 13;
+
+// ---------------------- SHIRT SENSOR PORTS ------------------------
+const int ss0 = 3;
+const int ss1 = 5;
+const int ss2 = 6;
+const int ss3 = 9;
+const int sout = 10;
+
+// --------------------- TIE SENSOR PORTS ------------------------
+const int ts0 = 0;
+const int ts1 = 1;
+const int ts2 = 2;
+const int ts3 = 4;
+const int tout = 8;
+
+// -----------------------TIE SELECTION VARIABLES--------------------
+int cycleCount = 0;
+bool foundTie = false;
+
+// -------------------- COLOR VARIABLES -----------------------------
 int dataR, dataG, dataB;
 enum color {red, orange, yellow, green, blue, purple, black};
 
-void setup(){
-  pinMode(s0, OUTPUT);
-  pinMode(s1, OUTPUT);
-  pinMode(s2, OUTPUT);
-  pinMode(s3, OUTPUT);
-  pinMode(out, INPUT);
-  Serial.begin(9600);
+void setup() {
+  // SHIRT SENSOR
+  pinMode(ss0, OUTPUT);
+  pinMode(ss1, OUTPUT);
+  pinMode(ss2, OUTPUT);
+  pinMode(ss3, OUTPUT);
+  pinMode(sout, INPUT);
+  digitalWrite(ss0, HIGH);
+  digitalWrite(ss1, HIGH);
 
-  digitalWrite(s0, HIGH);
-  digitalWrite(s1, HIGH);
+  // TIE SENSOR
+  pinMode(ts0, OUTPUT);
+  pinMode(ts1, OUTPUT);
+  pinMode(ts2, OUTPUT);
+  pinMode(ts3, OUTPUT);
+  pinMode(tout, INPUT);
+  digitalWrite(ts0, HIGH);
+  digitalWrite(ts1, HIGH);
+
+  // SERVO
+  rackServo.attach(sPin);
+
+  // SERIAL
+  Serial.begin(9600);
 }
 
-void loop(){
-
+void loop() {
   int shirtColor;
-  while (true){
-
-    senseColor();
-    if (dRed()) {shirtColor = red; break;}
-    if (dOrange()) {shirtColor = orange; break;}
-    if (dYellow()) {shirtColor = yellow; break;}
-    if (dGreen()) {shirtColor = green; break;}
-    if (dBlue()) {shirtColor = blue; break;}
-    if (dPurple()) {shirtColor = purple; break;}
-    if (dBlack()) {shirtColor = black; break;}
-    
+  while (true) {
+    // SENSE SHIRT COLOR
+    senseColor(ss2, ss3, sout);
+    if (sen2Red()) {
+      shirtColor = red;
+      break;
+    }
+    if (sen2Orange()) {
+      shirtColor = orange;
+      break;
+    }
+    if (sen2Yellow()) {
+      shirtColor = yellow;
+      break;
+    }
+    if (sen2Green()) {
+      shirtColor = green;  // CHANGE BACK TO SEN1COLORS
+      break;
+    }
+    if (sen2Blue()) {
+      shirtColor = blue;
+      break;
+    }
+    if (sen2Purple()) {
+      shirtColor = purple;
+      break;
+    }
+    if (sen2Black()) {
+      shirtColor = black;
+      break;
+    }
   }
- 
+
   Serial.print(shirtColor);
   Serial.print("\n");
-  
-/*  // find color to match
-  switch (shirtColor){
-    case 0:
-    // if we find a yellow tie
-    Serial.print("Yellow\n");
-    // else find a white tie
-    Serial.print("White\n");
-    // else find a black tie
-    Serial.print("Black\n");
-    // else default
-    break;
-    }
 
-  delay(10000);  */
+  // find color to match
+  foundTie = tieSelect(shirtColor);
+  // if tie is found, do something
+  if (foundTie) Serial.print("Looking Dapper Laddy!\n");
+  // else SOL
+  else Serial.print("SORRY :(\n");
+  while (true) {};
+
   // spin servo until tie of color is found
 }
 
-//------------------------------------------------------------------------//
-//
-//                      ***FUNCTION DEFINITIONS***
-//
-//
 /*---------------------------SENSE THE COLOR------------------------------*/
 
-void senseColor(){
+void senseColor(int s2Port, int s3Port, int oPort) {
   //****************SENSE RED COLOR********************************
-  digitalWrite(s2, LOW);
-  digitalWrite(s3, LOW);
-  dataR = pulseIn(out, LOW);
+  digitalWrite(s2Port, LOW);
+  digitalWrite(s3Port, LOW);
+  dataR = pulseIn(oPort, LOW);
 
   //**************** SENSE GREEN COLOR*******************************
-  digitalWrite(s2, LOW);
-  digitalWrite(s3, HIGH);
-  dataG = pulseIn(out, LOW);
+  digitalWrite(s2Port, LOW);
+  digitalWrite(s3Port, HIGH);
+  dataG = pulseIn(oPort, LOW);
 
   //**************** SENSE BLUE COLOR*******************************
-  digitalWrite(s2, HIGH);
-  digitalWrite(s3, HIGH);
-  dataB = pulseIn(out, LOW);
+  digitalWrite(s2Port, HIGH);
+  digitalWrite(s3Port, HIGH);
+  dataB = pulseIn(oPort, LOW);
 }
-
-/*---------------------------FIND THE COLOR------------------------------*/
-
-bool dRed(){
-// ----------------------RED-----------------------
-  if (dataR >= 18 && dataR <= 25){
-    if (dataG >= 45 && dataG <= 55){
-      if (dataB >= 57 && dataB <= 63){
-        Serial.print("RED\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-
-bool dOrange(){
-    //---------------------ORANGE----------------------
-  if (dataR >= 15 && dataR <= 20){
-    if (dataG >= 35 && dataG <= 42){
-      if (dataB >= 35 && dataB <= 40){
-        Serial.print("ORANGE\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-
-bool dYellow(){
-    //---------------------YELLOW----------------------
-  if (dataR >= 10 && dataR <= 18){
-    if (dataG >= 25 && dataG <= 32){
-      if (dataB >= 16 && dataB <= 24){
-        Serial.print("YELLOW\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-
-bool dGreen(){
-    //---------------------GREEN-----------------------
-  if (dataR >= 22 && dataR <= 30){
-    if (dataG >= 28 && dataG <= 35){
-      if (dataB >= 17 && dataB <= 23){
-        Serial.print("GREEN\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-
-bool dBlue(){
-  //---------------------BLUE-------------------------
-  if (dataR >= 60 && dataR <= 67){
-    if (dataG >= 52 && dataG <= 59){
-      if (dataB >= 64 && dataB <= 70){
-        Serial.print("BLUE\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-bool dPurple(){
-    //---------------------PURPLE-----------------------
-  if (dataR >= 30 && dataR <= 36){
-    if (dataG >= 25 && dataG <= 31){
-      if (dataB >= 33 && dataB <= 37){
-        Serial.print("PURPLE\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-
-bool dBlack(){
-    //--------------------BLACK-------------------------
-  if (dataR >= 55 && dataR <= 60){
-    if (dataG >= 58 && dataG <= 65){
-      if (dataB >= 63 && dataB <= 70){
-        Serial.print("BLACK\n");
-        return true;
-        }
-      }
-    }
-    return false;
-}
-
-
