@@ -1,24 +1,32 @@
 bool tieSelect(int sColor) {
+    senseColor(ts2, ts3, tout);
+    Serial.print(dataR);
+    Serial.print(", ");
+    Serial.print(dataG);
+    Serial.print(", ");
+    Serial.print(dataB);
+    Serial.print("\n");
   switch (sColor) {
   
     case 0:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);        
-        senseColor(ss2, ss3, sout);
-        if (sen2Blue()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1Blue()) {
           Serial.print("!!! FOUND A BLUE  MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2Black()) {
+        if (sen1Black()) {
           Serial.print ("!!! FOUND A BLACK MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2White()) {
+        if (sen1White()) {
           Serial.print("!!! FOUND A WHITE MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
-        rackServo.write(90);        
+        rackServo.write(108);
+        delay(725);
+        rackServo.write(90);       
         cycleCount++;
       }
       Serial.print("!!! NO GOOD MATCH FOUND !!!\n");
@@ -26,18 +34,19 @@ bool tieSelect(int sColor) {
       break;
     
     case 1:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);
-        senseColor(ss2, ss3, sout);
-        if (sen2White()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1White()) {
           Serial.print("!!! FOUND A WHITE MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2Blue()) {
+        if (sen1Blue()) {
           Serial.print ("!!! FOUND A BLUE MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
+        rackServo.write(108);
+        delay(850);
         rackServo.write(90);
         cycleCount++;
       }
@@ -46,18 +55,19 @@ bool tieSelect(int sColor) {
       break;
     
     case 2:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);        
-        senseColor(ss2, ss3, sout);
-        if (sen2Blue()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1Blue()) {
           Serial.print("!!! FOUND A BLUE MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2White()) {
+        if (sen1White()) {
           Serial.print ("!!! FOUND A WHITE MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
+        rackServo.write(108);
+        delay(850);
         rackServo.write(90);
         cycleCount++;
       }
@@ -66,18 +76,19 @@ bool tieSelect(int sColor) {
       break;
     
     case 3:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);        
-        senseColor(ss2, ss3, sout);
-        if (sen2Black()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1Black()) {
           Serial.print ("!!! FOUND A BLACK MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2Green()) {
+        if (sen1Green()) {
           Serial.print("!!! FOUND A GREEN MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
+        rackServo.write(108);
+        delay(850);
         rackServo.write(90);
         cycleCount++;
       }
@@ -86,22 +97,23 @@ bool tieSelect(int sColor) {
       break;
     
     case 4:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);       
-        senseColor(ss2, ss3, sout);
-        if (sen2Red()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1Red()) {
           Serial.print("!!! FOUND A RED MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2White()) {
+        if (sen1White()) {
           Serial.print ("!!! FOUND A WHITE MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2Yellow()) {
+        if (sen1Yellow()) {
           Serial.print("!!! FOUND A YELLOW MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
+        rackServo.write(108);
+        delay(850);
         rackServo.write(90);
         cycleCount++;
       }
@@ -110,22 +122,23 @@ bool tieSelect(int sColor) {
       break;
     
     case 5:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);        
-        senseColor(ss2, ss3, sout);
-        if (sen2Purple()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1Purple()) {
           Serial.print("!!! FOUND A PURPLE MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2White()) {
+        if (sen1White()) {
           Serial.print ("!!! FOUND A WHITE MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2Black()) {
+        if (sen1Black()) {
           Serial.print("!!! FOUND A BLACK MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
+        rackServo.write(108);
+        delay(850);
         rackServo.write(90);
         cycleCount++;
       }
@@ -134,22 +147,23 @@ bool tieSelect(int sColor) {
       break;
       
     case 6:
-      while (cycleCount <= 4) {
+      while (cycleCount <= 5) {
         delay(1500);
-        senseColor(ss2, ss3, sout);
-        if (sen2Red()) {
+        senseColor(ts2, ts3, tout);
+        if (sen1Red()) {
           Serial.print("!!! FOUND A RED MATCHING TIE !!!\n");
           return foundTie = true;
         }
-        if (sen2White()) {
+        if (sen1White()) {
           Serial.print ("!!! FOUND A WHITE MATCHING TIE !!!\n");
           return true;
         }
-        if (sen2Yellow()) {
+        if (sen1Yellow()) {
           Serial.print("!!! FOUND A YELLOW MATCHING TIE !!!\n");
           return true;
         }
-        rackServo.write(107);
+        rackServo.write(108);
+        delay(850);
         rackServo.write(90);
         cycleCount++;
       }
