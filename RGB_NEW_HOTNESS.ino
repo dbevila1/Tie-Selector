@@ -2,6 +2,7 @@
 // Tie Selector
 // Uses two TCS3200 Color Sensors, 360* Servo and Arduino Uno R3 v
 // Kent FashionTech Hackathon
+// Grand Prize Winning
 // 1/27/2017
 
 #include <Servo.h>
