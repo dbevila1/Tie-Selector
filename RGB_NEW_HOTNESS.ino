@@ -9,21 +9,21 @@
 Servo rackServo;
 
 // ---------------------- SERVO PIN ---------------------------------
-const int sPin = 13;
+const int sPin = 22;
 
 // ---------------------- SHIRT SENSOR PORTS ------------------------
-const int ss0 = 3;
-const int ss1 = 5;
-const int ss2 = 6;
-const int ss3 = 9;
-const int sout = 10;
+const int ss0 = 2;
+const int ss1 = 3;
+const int ss2 = 5;
+const int ss3 = 6;
+const int sout = 4;
 
 // --------------------- TIE SENSOR PORTS ------------------------
-const int ts0 = 0;
-const int ts1 = 1;
-const int ts2 = 2;
-const int ts3 = 4;
-const int tout = 8;
+const int ts0 = 8;
+const int ts1 = 9;
+const int ts2 = 10;
+const int ts3 = 11;
+  const int tout = 12;
 
 // -----------------------TIE SELECTION VARIABLES--------------------
 int cycleCount = 0;
@@ -64,6 +64,12 @@ void loop() {
   while (true) {
     // SENSE SHIRT COLOR
     senseColor(ss2, ss3, sout);
+    Serial.print(dataR);
+    Serial.print(", ");
+    Serial.print(dataG);
+    Serial.print(", ");
+    Serial.print(dataB);
+    Serial.print("\n");
     if (sen2Red()) {
       shirtColor = red;
       break;
