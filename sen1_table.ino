@@ -8,9 +8,9 @@
 
 bool sen1Red(){
 // ----------------------RED-----------------------
-  if (dataR >= 95 && dataR <= 99){
-    if (dataG >= 42 && dataG <= 49){
-      if (dataB >= 51 && dataB <= 55){
+  if (dataR >= 18 && dataR <= 26){
+    if (dataG >= 36 && dataG <= 45){
+      if (dataB >= 43 && dataB <= 54){
         Serial.print("RED\n");
         return true;
         }
@@ -21,9 +21,9 @@ bool sen1Red(){
 
 bool sen1Orange(){
     //---------------------ORANGE----------------------
-  if (dataR >= 70 && dataR <= 74){
-    if (dataG >= 32 && dataG <= 36){
-      if (dataB >= 32 && dataB <= 36){
+  if (dataR >= 11 && dataR <= 16){
+    if (dataG >= 27 && dataG <= 36){
+      if (dataB >= 24 && dataB <= 33){
         Serial.print("ORANGE\n");
         return true;
         }
@@ -34,9 +34,9 @@ bool sen1Orange(){
 
 bool sen1Yellow(){
     //---------------------YELLOW----------------------
-  if (dataR >= 54 && dataR <= 58){
-    if (dataG >= 21 && dataG <= 25){
-      if (dataB >= 12 && dataB <= 16){
+  if (dataR >= 8 && dataR <= 15){
+    if (dataG >= 16 && dataG <= 25){
+      if (dataB >= 10 && dataB <= 18){
         Serial.print("YELLOW\n");
         return true;
         }
@@ -47,9 +47,9 @@ bool sen1Yellow(){
 
 bool sen1Green(){
     //---------------------GREEN-----------------------
-  if (dataR >= 42 && dataR <= 46){
-    if (dataG >= 48 && dataG <= 52){
-      if (dataB >= 47 && dataB <= 51){
+  if (dataR >= 32 && dataR <= 44){
+    if (dataG >= 38 && dataG <= 52){
+      if (dataB >= 35 && dataB <= 48){
         Serial.print("GREEN\n");
         return true;
         }
@@ -60,9 +60,9 @@ bool sen1Green(){
 
 bool sen1Blue(){
   //---------------------BLUE-------------------------
-  if (dataR >= 55 && dataR <= 59){
-    if (dataG >= 38 && dataG <= 42){
-      if (dataB >= 54 && dataB <= 58){
+  if (dataR >= 35 && dataR <= 44){
+    if (dataG >= 27 && dataG <= 38){
+      if (dataB >= 30 && dataB <= 45){
         Serial.print("BLUE\n");
         return true;
         }
@@ -72,9 +72,9 @@ bool sen1Blue(){
 }
 bool sen1Purple(){
     //---------------------PURPLE-----------------------
-  if (dataR >= 33 && dataR <= 37){
-    if (dataG >= 28 && dataG <= 32){
-      if (dataB >= 34 && dataB <= 38){
+  if (dataR >= 27 && dataR <= 34){
+    if (dataG >= 22 && dataG <= 27){
+      if (dataB >= 25 && dataB <= 36){
         Serial.print("PURPLE\n");
         return true;
         }
@@ -85,9 +85,9 @@ bool sen1Purple(){
 
 bool sen1Black(){
     //--------------------BLACK-------------------------
-  if (dataR >= 44 && dataR <= 48){
-    if (dataG >= 41 && dataG <= 45){
-      if (dataB >= 49 && dataB <= 53){
+  if (dataR >= 42 && dataR <= 51){
+    if (dataG >= 46 && dataG <= 52){
+      if (dataB >= 47 && dataB <= 64){
         Serial.print("BLACK\n");
         return true;
         }
@@ -95,3 +95,17 @@ bool sen1Black(){
     }
     return false;
 }
+
+bool sen1White(){
+    //--------------------WHITE-------------------------
+  if (dataR >= 10 && dataR <= 20){
+    if (dataG >= 10 && dataG <= 20){
+      if (dataB >= 10 && dataB <= 20){
+        Serial.print("White\n");
+        return true;
+        }
+      }
+    }
+    return false;
+}
+
